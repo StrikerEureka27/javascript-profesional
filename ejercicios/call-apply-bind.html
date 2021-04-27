@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Establece un this utilizando call
+        function Saludar (){
+            console.log(`Hola soy ${this.name}  ${this.apellido} ` );
+        }
+
+        const pablo = {
+            nombre: 'Pablo', 
+            apeliido: 'Caceros'
+        }
+
+        //Establecemos el valor del this mediante la funcion de call
+        Saludar.call(pablo);
+
+        function Caminar(metros, direccion){
+            console.log(` ${this.name} camina ${this.metros} metros hacia la direccion ${this.direccion} `);
+        }
+
+        Caminar.call(pablo, 400, 'Norte');
+
+
+        //Establece this usando Apply y pasar argumentos a la funcion
+        Caminar.apply(pablo, [800, 'Norte'])
+
+        // Establecer this en una nueva funcion utilizando this 
+        const pablo = {
+            nombre: 'Daniel', 
+            apeliido: 'Pineda'
+        }
+
+        const danielSaluda = Saludar.bind(daniel);
+        danielSaluda();
+
+        
+
+
+
+
+
+    </script>
+</body>
+</html>

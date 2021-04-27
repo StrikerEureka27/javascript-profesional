@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fecth</title>
+</head>
+<body>
+    <div id="chaImg" ></div>
+    <button id="load" style="background-color: green;" >Load</button>
+    <button id="cancel" style="background-color: red;" >Cancel</button>
+    <script>
+        const URL = "https://rickandmortyapi.com/api/character";
+        const characterImage = document.getElementById('chaImg');
+        const loadBtn = document.getElementById('load');
+        const cancelBtn = document.getElementById('cancel');
+        let controller;
+
+        const obtainData = async () => {
+            try{
+                const response = await fetch(URL, {signal: controller.signal}); //Pasamos un objeto de configuracion 
+                const characters = await response.json();
+                return characters.results;
+            }catch(error){
+                console.error(error);
+            }
+        }
+
+        const getCharacterImage = async () => {
+            try {
+                const characters = await obtainData();
+                return printImage(characters);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const printImage = (object) => {
+            const image = document.createElement('div');
+            image.innerHTML = `<img src="${object[0].image}" alt="Image loading error">`;
+            characterImage.appendChild(image);
+        }
+
+        loadBtn.onclick = async function(){
+            controller = new AbortController();
+            getCharacterImage();
+        }
+        
+        cancelBtn.onclick = async function(){
+            controller.abort();
+        }
+
+        // AbortController : Es una clase que debemos instanciar 
+
+
+
+    </script>
+</body>
+</html>

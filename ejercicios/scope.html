@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Global scope 
+        var message = 'Hello, platzi!';
+        /* window es el scope global  */
+        //function scope
+        function printNumbers() {
+            function getNumbers(n) {
+                for (var i = 0; i < 10; i++) {
+                    setTimeout(() => console.log(n), 100)
+                }
+            }
+            getNumbers(i);
+        }
+
+        //Block scope
+        function printNumbers() {
+                for (var i = 0; i < 10; i++) {
+                    setTimeout(() => console.log(n), 100)
+                }
+        }
+
+
+        printNumbers();
+
+    </script>
+</body>
+
+</html>

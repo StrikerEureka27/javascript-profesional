@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promesas</title>
+</head>
+<body>
+    <h3>Alive characters</h3>
+    <ul id="list" style="background-color: grey;" >
+      <hr>
+    </ul>
+    <h3>Character names</h3>
+    <ul id="listNames" style="background-color: grey;" ></ul>
+    <script>
+       
+        const list = document.getElementById('list');
+        const element = document.getElementById('element');
+        const listNames = document.getElementById('listNames');
+
+        const obtainCharacterData = async () => {
+          const url = 'https://rickandmortyapi.com/api/character';
+          try {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results;
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
+        const getCharactersAlive = async () => {
+          try {
+            const characters = await obtainCharacterData();
+            const charactersAlive = characters.filter(character => character.status == 'Alive');
+            //return characterAlive;
+            return printCharacterAlive(charactersAlive);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
+        const getCharactersName = async () => {
+          try {
+            const characters = await obtainCharacterData();
+            const characterName = characters.map(character => character.name);
+            //return console.log(characterName);
+            return printCharacterName(characterName);
+          } catch (error) {
+            console.error(error); 
+          }
+        }
+
+       const printCharacterAlive = (character) => {
+          list.innerHTML = '';
+          character.forEach(element => {
+            const listElement = document.createElement('li');
+            listElement.innerHTML = `<li style="list-style-type: square; background-color: lightgrey" >${element.name}</li>`;
+            list.appendChild(listElement);
+          })       
+       } 
+
+       const printCharacterName = (character) => {
+          listNames.innerHTML = '';
+          character.forEach(element => {
+            const listElement = document.createElement('li');
+            listElement.innerHTML = `<li style="list-style-type: square; background-color: lightgrey" >${element}</li>`;
+            listNames.appendChild(listElement);
+          })       
+       } 
+
+
+
+       // Calling funtions 
+
+       getCharactersAlive();
+       getCharactersName();
+
+
+        
+  
+        function renderMovies(movies) {
+          const movieList = document.getElementById('movies');
+          movieList.innerHTML = '';
+  
+          movies.forEach(movie => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+              <img src="https://image.tmdb.org/t/p/w342${movie.poster_path}" />
+              <h5>${movie.title}</h5>
+              <p>Released on <em>${movie.release_date}</em></p>
+              `;
+  
+            movieList.appendChild(listItem);
+          });
+        }
+  
+  
+        
+      </script>
+</body>
+</html>

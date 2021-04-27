@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // This se refiere a un objeto que actualmente esta ejecutando un bloque de codigo
+
+        //This en el scope global 
+        console.log(`This en el scope global: ${this}`);
+
+        //This dentro de una funcion
+        const whoIsThis = () => console.log(`This es el funtion scope:  ${this}`);
+        whoIsThis();
+
+        //This en el scope en strict mode de javascript 
+        const whoIsThis2 = () => {
+            "use strict"
+            return console.log(`This es el funtion scope:  ${this}`);
+        }
+        whoIsThis2();
+
+        // this en el contexto de un objeto
+        const person = {
+            name: 'Pablo', 
+            saludar: function () {console.log(`Hola yo soy: ${this.name}`)} 
+        }
+
+        person.saludar();
+
+        //This cuando sacamos a una funcion de un objeto 
+        const accion = person.saludar;
+        accion();
+
+        //This dentro de una clase o prototipo
+
+        class Person{
+            constructor(name){
+                this.name = name;
+            }
+
+            saludar(){
+                console.log(`Hola yo soy: ${this.name}`)
+            }
+        }
+
+        const angela = new Person('Angela');
+        angela.saludar();
+
+
+
+
+    </script>
+</body>
+</html>

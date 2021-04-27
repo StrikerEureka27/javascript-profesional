@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Closures 
+        //IIFE -- inmediatly invoked function execute
+        (function () {
+            let color = 'green';
+
+            function printColor() {
+                console.log(color);
+            }
+
+            printColor();
+        })();
+
+        //Funcion que regresa funciones 
+        function makeaColor(color) {
+            let colorMessage = `The color is ${color}`
+            return function () { console.log(colorMessage) }
+        }
+
+        let greenColorMessage = makeaColor("green");
+        console.log(greenColorMessage());
+
+        // Los closures nos van a permitir crear variables privadas 
+
+        // const counter = {
+        //     count: 3
+        // };
+
+
+        function makeConter(n) {
+            let count = n;
+            return {
+                increase: function () { return ++count },
+                decrease: function () { return --count },
+                getCount: function () { return count }
+            }
+        }
+
+        let counter = makeConter(7);
+
+        counter.increase();
+        counter.increase();
+        counter.decrease();
+        console.log(`The count is: ` + counter.getCount());
+
+    </script>
+</body>
+
+</html>
